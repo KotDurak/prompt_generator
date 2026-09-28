@@ -62,7 +62,7 @@ function generatePrompt() {
         if (pose) parts.push(pose);
     }
 
-    // 6. Одежда (Верх) - УМНАЯ СКЛЕЙКА
+    // 6. Одежда (Верх) - УМНАЯ СКЛЕЙКА С ЯКОРЕМ
     const topColorCustom = document.getElementById('top_color_custom').value.trim();
     let topColor = topColorCustom || document.getElementById('top_color').value;
     if (topColor === 'custom') topColor = '';
@@ -73,12 +73,12 @@ function generatePrompt() {
 
     if (topColor && topValue) {
         const combined = `${topColor} ${topValue}`;
-        // Если вместе это 2 слова или меньше (например, "red bra") - оставляем вместе
         if (combined.split(' ').length <= 2) {
-            parts.push(combined);
+            parts.push(combined); // "red bra"
         } else {
-            // Если 3 слова (например, "red short skirt") - разбиваем на два тега
-            parts.push(topColor, topValue);
+            // "white crop top" → "white top, crop top"
+            const anchor = topValue.split(' ').pop(); // "top"
+            parts.push(`${topColor} ${anchor}`, topValue);
         }
     } else if (topColor) {
         parts.push(topColor);
@@ -86,7 +86,7 @@ function generatePrompt() {
         parts.push(topValue);
     }
 
-    // 7. Одежда (Низ) - УМНАЯ СКЛЕЙКА
+    // 7. Одежда (Низ) - УМНАЯ СКЛЕЙКА С ЯКОРЕМ
     const bottomColorCustom = document.getElementById('bottom_color_custom').value.trim();
     let bottomColor = bottomColorCustom || document.getElementById('bottom_color').value;
     if (bottomColor === 'custom') bottomColor = '';
@@ -100,7 +100,9 @@ function generatePrompt() {
         if (combined.split(' ').length <= 2) {
             parts.push(combined); // "white panties"
         } else {
-            parts.push(bottomColor, bottomValue); // "black", "short shorts"
+            // "black short shorts" → "black shorts, short shorts"
+            const anchor = bottomValue.split(' ').pop(); // "shorts"
+            parts.push(`${bottomColor} ${anchor}`, bottomValue);
         }
     } else if (bottomColor) {
         parts.push(bottomColor);
@@ -127,6 +129,13 @@ function generatePrompt() {
     // 11. Освещение
     const lighting = document.getElementById('lighting').value;
     if (lighting) parts.push(lighting);
+
+    // 11.5. Аксессуары (очки)
+    const glasses = document.getElementById('glasses');
+    if (glasses && glasses.checked) {
+        parts.push('glasses');
+    }
+
 
     // 12. Дополнительно
     const extra = document.getElementById('extra').value.trim();
