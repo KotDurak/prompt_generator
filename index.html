@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 Генератор промптов</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h2>🎨 Генератор промптов - Девушка</h2>
+
+<div class="section">
+    <h3>📷 Вид и фон</h3>
+    <div class="control">
+        <label>Кадрирование:</label>
+        <select id="framing">
+            <option value="full body">Полный рост</option>
+            <option value="cowboy shot">Ковбойский кадр</option>
+            <option value="upper body">По пояс</option>
+            <option value="portrait">Портрет</option>
+            <option value="close-up">Крупный план</option>
+        </select>
+    </div>
+    <div class="control">
+        <label>Фон:</label>
+        <select id="background">
+            <option value="simple background">Простой фон</option>
+            <option value="white background">Белый фон</option>
+            <option value="bedroom">Спальня</option>
+            <option value="luxury room">Роскошная комната</option>
+            <option value="city park">Городской парк</option>
+            <option value="night city">Ночной город</option>
+            <option value="">— Свой вариант —</option>
+        </select>
+        <input type="text" id="background_custom" placeholder="Например: rooftop, cafe...">
+    </div>
+</div>
+
+<div class="section">
+    <h3>💇 Волосы и Глаза</h3>
+    <div class="control">
+        <label>Цвет волос:</label>
+        <select id="hair_color">
+            <option value="red hair">Красные</option>
+            <option value="white hair">Белые</option>
+            <option value="black hair">Черные</option>
+            <option value="blonde hair">Блонд</option>
+            <option value="purple hair">Фиолетовые</option>
+            <option value="">— Свой вариант —</option>
+        </select>
+        <input type="text" id="hair_color_custom" placeholder="Например: gradient hair...">
+    </div>
+    <div class="control">
+        <label>Длина и прическа:</label>
+        <select id="hair_length">
+            <option value="long hair">Длинные</option>
+            <option value="medium hair">Средние</option>
+            <option value="short hair">Короткие</option>
+        </select>
+        <select id="hair_style" style="margin-top: 5px;">
+            <option value="twintails">Два хвоста</option>
+            <option value="ponytail">Хвост</option>
+            <option value="messy hair">Растрепанные</option>
+            <option value="">— Без прически —</option>
+        </select>
+    </div>
+    <div class="control">
+        <label>Цвет глаз:</label>
+        <select id="eye_color">
+            <option value="red eyes">Красные</option>
+            <option value="blue eyes">Голубые</option>
+            <option value="green eyes">Зеленые</option>
+            <option value="golden eyes">Золотые</option>
+            <option value="">— Свой вариант —</option>
+        </select>
+    </div>
+</div>
+
+<div class="section">
+    <h3>👤 Тело и Поза</h3>
+    <div class="control">
+        <label>Тип фигуры:</label>
+        <select id="body_type">
+            <option value="slender">Стройная</option>
+            <option value="curvy">Пышные формы</option>
+            <option value="athletic">Спортивная</option>
+            <option value="">— Не указывать —</option>
+        </select>
+    </div>
+    <div class="control">
+        <label>Поза:</label>
+        <select id="pose">
+            <option value="sitting">Сидит</option>
+            <option value="standing">Стоит</option>
+            <option value="lying">Лежит</option>
+            <option value="kneeling">На коленях</option>
+            <option value="facing viewer">Смотрит на зрителя</option>
+            <option value="">— Свой вариант —</option>
+        </select>
+        <input type="text" id="pose_custom" placeholder="Например: natural pose, correct proportions...">
+    </div>
+</div>
+
+<div class="section">
+    <h3>👗 Одежда и Белье</h3>
+
+    <div class="control">
+        <label>Верх (тип):</label>
+        <select id="top">
+            <option value="">— Не указывать —</option>
+            <option value="bra">Бюстгальтер</option>
+            <option value="cat bra">Бюстгальтер с ушками</option>
+            <option value="crop top">Кроп-топ</option>
+            <option value="t-shirt">Футболка</option>
+            <option value="shirt">Рубашка</option>
+            <option value="blouse">Блузка</option>
+            <option value="tank top">Майка</option>
+            <option value="off-shoulder shirt">Открытые плечи</option>
+            <option value="backless dress">Открытая спина</option>
+            <option value="custom">— Свой вариант —</option>
+        </select>
+        <input type="text" id="top_custom" placeholder="Например: lace top, leather jacket..." style="display: none;">
+    </div>
+
+    <div class="control">
+        <label>Верх (цвет):</label>
+        <select id="top_color">
+            <option value="">— Не указывать —</option>
+            <option value="red">Красный</option>
+            <option value="white">Белый</option>
+            <option value="black">Черный</option>
+            <option value="blue">Синий</option>
+            <option value="pink">Розовый</option>
+            <option value="purple">Фиолетовый</option>
+            <option value="custom">— Свой вариант —</option>
+        </select>
+        <input type="text" id="top_color_custom" placeholder="Например: neon green..." style="display: none;">
+    </div>
+
+    <div class="control">
+        <label>Низ (тип):</label>
+        <select id="bottom">
+            <option value="">— Не указывать —</option>
+            <option value="panties">Трусики</option>
+            <option value="cat panties">Трусики с ушками</option>
+            <option value="miniskirt">Мини-юбка</option>
+            <option value="short skirt">Короткая юбка</option>
+            <option value="short shorts">Короткие шорты</option>
+            <option value="long skirt">Длинная юбка</option>
+            <option value="jeans">Джинсы</option>
+            <option value="pleated skirt">Плиссированная юбка</option>
+            <option value="custom">— Свой вариант —</option>
+        </select>
+        <input type="text" id="bottom_custom" placeholder="Например: leather skirt..." style="display: none;">
+    </div>
+
+    <div class="control">
+        <label>Низ (цвет):</label>
+        <select id="bottom_color">
+            <option value="">— Не указывать —</option>
+            <option value="red">Красный</option>
+            <option value="white">Белый</option>
+            <option value="black">Черный</option>
+            <option value="blue">Синий</option>
+            <option value="pink">Розовый</option>
+            <option value="purple">Фиолетовый</option>
+            <option value="custom">— Свой вариант —</option>
+        </select>
+        <input type="text" id="bottom_color_custom" placeholder="Например: neon green..." style="display: none;">
+    </div>
+
+    <div class="control">
+        <label>Ноги:</label>
+        <select id="legs">
+            <option value="">— Не указывать —</option>
+            <option value="bare legs">Голые ноги</option>
+            <option value="thighhighs">Чулки до бедра</option>
+            <option value="kneehighs">Гольфы</option>
+            <option value="pantyhose">Колготки</option>
+            <option value="stockings">Сетчатые чулки</option>
+            <option value="leggings">Леггинсы</option>
+        </select>
+    </div>
+
+    <div class="control">
+        <label>Обувь:</label>
+        <select id="shoes">
+            <option value="">— Не указывать —</option>
+            <option value="high heels">Туфли на каблуке</option>
+            <option value="sneakers">Кроссовки</option>
+            <option value="boots">Ботинки</option>
+            <option value="sandals">Сандалии</option>
+            <option value="loafers">Лоферы</option>
+            <option value="barefoot">Босиком</option>
+        </select>
+    </div>
+</div>
+
+
+
+<div class="section">
+    <h3>✨ Атмосфера и Детали</h3>
+    <div class="control">
+        <label>Освещение:</label>
+        <select id="lighting">
+            <option value="warm light">Теплый свет</option>
+            <option value="soft lighting">Мягкий свет</option>
+            <option value="neon lights">Неоновый свет</option>
+            <option value="">— Не указывать —</option>
+        </select>
+    </div>
+    <div class="control">
+        <label>Дополнительные детали:</label>
+        <input type="text" id="extra" placeholder="Например: holding bouquet, smiling...">
+    </div>
+</div>
+
+<div class="buttons">
+    <button onclick="generatePrompt()">✨ Создать промпт</button>
+    <button onclick="copyPrompt()" id="copyBtn">📋 Копировать</button>
+</div>
+
+<div class="section">
+    <h3>📝 Результат:</h3>
+    <textarea id="result" readonly placeholder="Здесь появится промпт..."></textarea>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
