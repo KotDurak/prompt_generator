@@ -152,19 +152,73 @@
         <label>Верх:</label>
         <select id="top">
             <option value="">Не важно</option>
-            <option value="t-shirt">👕 Футболка</option>
-            <option value="shirt"> Рубашка</option>
-            <option value="blouse">👚 Блузка</option>
-            <option value="crop top"> Кроп-топ</option>
-            <option value="tank top">🎽 Майка</option>
-            <option value="off-shoulder shirt">👗 С открытыми плечами</option>
-            <option value="backless dress">👗 С открытой спиной</option>
-            <option value="bikini top"> Бикини (верх)</option> <!-- 🔥 НОВОЕ -->
-            <option value="bra">🎀 Бюстгальтер</option>
-            <option value="cat bra">🐱 Бюстгальтер с ушками</option>
             <option value="custom">— Свой вариант —</option>
+
+            <optgroup label="👕 Базовый и повседневный">
+                <option value="t-shirt">👕 Футболка</option>
+                <option value="shirt">👔 Рубашка</option>
+                <option value="unbuttoned shirt">👔 Расстегнутая рубашка</option>
+                <option value="blouse">👚 Блузка</option>
+                <option value="crop top">Кроп-топ</option>
+                <option value="tank top">🎽 Майка</option>
+                <option value="polo">👕 Рубашка-поло</option>
+                <option value="turtleneck">🧣 Водолазка</option>
+                <option value="hoodie">🧥 Худи / Толстовка</option>
+            </optgroup>
+
+            <optgroup label="👗 Открытый и вечерний стиль">
+                <option value="off-shoulder shirt">👗 С открытыми плечами</option>
+                <option value="slipped off shoulder">👗 Спущенное с одного плеча</option>
+                <option value="backless dress">👗 С открытой спиной</option>
+                <option value="corset">⏳ Корсет / Бюстье</option>
+                <option value="satin top">👚 Шёлковый топ на бретельках</option>
+                <option value="deep cleavage">🔥 Топ с глубоким декольте</option>
+            </optgroup>
+
+            <optgroup label="🧶 Уютный и домашний стиль">
+                <option value="oversize sweater">🧶 Оверсайз свитер (спадающий с плеча)</option>
+                <option value="virgin killer sweater">💔 Свитер «убийца девственников»</option>
+                <option value="pajama top">🧸 Пижамная рубашка</option>
+                <option value="bathrobe">🧖‍♀️ Банный халат (нараспашку)</option>
+            </optgroup>
+
+            <optgroup label="🎀 Нижнее белье и купальники">
+                <option value="sports bra">🎽 Спортивный топ-бра</option>
+                <option value="bra">🎀 Бюстгальтер</option>
+                <option value="cat bra">🐱 Бюстгальтер с ушками</option>
+                <option value="cupless bra">🔓 Бюстгальтер без чашечек</option>
+                <option value="lace bodysuit">🖤 Кружевное боди</option>
+                <option value="transparent bra">🕸️ Прозрачное бра</option>
+                <option value="bikini top">👙 Бикини (верх)</option>
+            </optgroup>
+
+            <optgroup label="⛓️ Фетиш, кожа и латекс">
+                <option value="latex top">🔥 Латексный / виниловый топ</option>
+                <option value="fishnet top">🕸️ Сетка (топ)</option>
+                <option value="harness">⛓️ Харнесс / Портупея</option>
+                <option value="leather jacket">🧥 Косуха / Кожаная куртка</option>
+                <option value="leather bra">🖤 Кожаный лиф</option>
+            </optgroup>
+
+            <optgroup label="🎭 Косплей и униформа">
+                <option value="school shirt">🎒 Школьная рубашка (с галстуком)</option>
+                <option value="maid top">🧹 Топ горничной</option>
+                <option value="sports jersey">🏀 Спортивная джерси</option>
+                <option value="nurse top">🩺 Медицинский топ / халат</option>
+                <option value="office suit">💼 Строгий пиджак (офисный стиль)</option>
+            </optgroup>
+
+            <optgroup label="👘 Традиционный и Фэнтези (Бонус)">
+                <option value="kimono">👘 Кимоно</option>
+                <option value="yukata">🎐 Юката (летнее кимоно)</option>
+                <option value="miko outfit">⛩️ Одежда жрицы (мико)</option>
+                <option value="fantasy armor">🛡️ Легкая фэнтези-броня</option>
+                <option value="wizard robe">🧙‍♀️ Мантия волшебницы</option>
+            </optgroup>
         </select>
-        <select id="top_color" style="margin-top: 5px;" class="color-select">
+
+        <!-- Цвета и кастомные поля остаются без изменений -->
+        <select id="top_color" class="color-select" style="margin-top: 5px;">
             <option value="">Цвет верха</option>
             <option value="red">Красный</option>
             <option value="white">Белый</option>
@@ -182,18 +236,51 @@
         <label>Низ:</label>
         <select id="bottom">
             <option value="">Не важно</option>
-            <option value="miniskirt">👗 Мини-юбка</option>
-            <option value="short skirt">👗 Короткая юбка</option>
-            <option value="pleated skirt">👗 Плиссированная юбка</option>
-            <option value="long skirt">👗 Длинная юбка</option>
-            <option value="short shorts">🩳 Короткие шорты</option>
-            <option value="jeans">👖 Джинсы</option>
-            <option value="bikini bottom"> Бикини (низ)</option> <!-- 🔥 НОВОЕ -->
-            <option value="panties">🩲 Трусики</option>
-            <option value="cat panties">🐱 Трусики с ушками</option>
             <option value="custom">— Свой вариант —</option>
+
+            <optgroup label=" Базовый и повседневный низ">
+                <option value="jeans">👖 Джинсы</option>
+                <option value="denim shorts">🩳 Джинсовые шорты</option>
+                <option value="short shorts">🩳 Короткие шорты</option>
+                <option value="sweatpants"> Спортивные штаны</option>
+                <option value="leggings">🧘 Леггинсы / Лосины</option>
+                <option value="yoga pants">🧘 Йога-штаны</option>
+            </optgroup>
+
+            <optgroup label="👗 Юбки (Классика аниме)">
+                <option value="pleated skirt">👗 Плиссированная юбка (школьная)</option>
+                <option value="miniskirt">👗 Мини-юбка</option>
+                <option value="pencil skirt">👗 Юбка-карандаш</option>
+                <option value="frilled skirt">👗 Юбка с оборками</option>
+                <option value="long skirt"> Длинная юбка (макси)</option>
+                <option value="tiered skirt"> Многоярусная юбка</option>
+            </optgroup>
+
+            <optgroup label=" Нижнее белье и купальники">
+                <option value="panties">🩲 Трусики</option>
+                <option value="bikini bottom">👙 Бикини (низ)</option>
+                <option value="thong"> Стринги</option>
+                <option value="bloomers">🩳 Спортивные трусики (блумеры)</option>
+                <option value="cat panties">🐱 Трусики с ушками</option>
+            </optgroup>
+
+            <optgroup label="⛓️ Фетиш, кожа и латекс">
+                <option value="latex pants">🔥 Латексные штаны</option>
+                <option value="leather pants">🖤 Кожаные штаны</option>
+                <option value="latex skirt">🔥 Латексная юбка</option>
+                <option value="torn pants">🧟 Рваные штаны</option>
+            </optgroup>
+
+            <optgroup label="🎭 Униформа и Традиционный стиль">
+                <option value="school skirt">🎒 Школьная юбка</option>
+                <option value="maid skirt">🧹 Юбка горничной</option>
+                <option value="hakama">️ Хакама (традиционные штаны-юбка)</option>
+                <option value="armor skirt">🛡️ Юбка-доспех (тассеты)</option>
+                <option value="sarong">🏖️ Саронг (пляжная накидка)</option>
+            </optgroup>
         </select>
-        <select id="bottom_color" style="margin-top: 5px;" class="color-select">
+
+        <select id="bottom_color" class="color-select" style="margin-top: 5px;">
             <option value="">Цвет низа</option>
             <option value="red">Красный</option>
             <option value="white">Белый</option>
