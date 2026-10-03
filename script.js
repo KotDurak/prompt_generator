@@ -1,203 +1,231 @@
 // ==========================================
-// 1. ЛОГИКА ИНТЕРФЕЙСА (выполняется 1 раз при загрузке)
+// 0. ИНИЦИАЛИЗАЦИЯ TELEGRAM WEB APP
 // ==========================================
+const tg = window.Telegram.WebApp;
+tg.expand();
+tg.ready();
 
-document.getElementById('top').addEventListener('change', function() {
-    document.getElementById('top_custom').style.display = this.value === 'custom' ? 'block' : 'none';
-});
+function getVal(id) {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : "";
+}
 
-document.getElementById('top_color').addEventListener('change', function() {
-    document.getElementById('top_color_custom').style.display = this.value === 'custom' ? 'block' : 'none';
-});
-
-document.getElementById('bottom').addEventListener('change', function() {
-    document.getElementById('bottom_custom').style.display = this.value === 'custom' ? 'block' : 'none';
-});
-
-document.getElementById('bottom_color').addEventListener('change', function() {
-    document.getElementById('bottom_color_custom').style.display = this.value === 'custom' ? 'block' : 'none';
-});
-
+function isChecked(id) {
+    const el = document.getElementById(id);
+    return el ? el.checked : false;
+}
 
 // ==========================================
-// 2. ГЕНЕРАЦИЯ ПРОМПТА
+// 1. УМНАЯ ЛОГИКА ИНТЕРФЕЙСА (Показ/Скрытие)
 // ==========================================
+// Словарь связей: ID селекта -> ID инпута
+const customFieldsMap = {
+    'background': 'background_custom',
+    'hair_color': 'hair_color_custom',
+    'eye_color': 'eye_color_custom',
+    'pose': 'pose_custom',
+    'top': 'top_custom',
+    'top_color': 'top_color_custom',
+    'bottom': 'bottom_custom',
+    'bottom_color': 'bottom_color_custom'
+};
 
-function generatePrompt() {
+// Навешиваем обработчики на все пары автоматически
+for (const [selectId, inputId] of Object.entries(customFieldsMap)) {
+    const selectEl = document.getElementById(selectId);
+    const inputEl = document.getElementById(inputId);
+
+    if (selectEl && inputEl) {
+        selectEl.addEventListener('change', function() {
+            // Показываем, если выбрано "" (Свой вариант) или "custom"
+            if (this.value === "" || this.value === "custom") {
+                inputEl.style.display = 'block';
+                inputEl.focus(); // Сразу ставим курсор в поле для удобства
+            } else {
+                inputEl.style.display = 'none';
+                inputEl.value = ''; // Очищаем значение, чтобы оно не попало в промпт случайно!
+            }
+        });
+    }
+}
+
+// ==========================================
+// 2. СБОРКА ОПИСАНИЯ ОБРАЗА
+// ==========================================
+function buildDescription() {
     const parts = [];
-
-    // 1. База
     parts.push('1girl, solo');
 
-    // 2. Кадрирование
-    const framing = document.getElementById('framing').value;
-    if (framing) parts.push(framing);
+    const framing = getVal('framing');
+    const isFullBody = framing === 'full body'; // Запоминаем, выбран ли полный рост
 
-    // 3. Волосы
-    const hairColorCustom = document.getElementById('hair_color_custom').value.trim();
+    if (framing) {
+        parts.push(framing);
+
+        // 🔥 МАГИЯ ДЛЯ ПОЛНОГО РОСТА
+        if (isFullBody) {
+            // Эти теги заставляют модель отдалить камеру и прорисовать детали
+            parts.push('wide shot, detailed full body, perfect anatomy, detailed feet, sharp focus');
+        }
+    }
+
+
+    // Волосы
+    const hairColorCustom = getVal('hair_color_custom');
     if (hairColorCustom) parts.push(hairColorCustom);
     else {
-        const hairColor = document.getElementById('hair_color').value;
+        const hairColor = getVal('hair_color');
         if (hairColor) parts.push(hairColor);
     }
 
-    const hairLength = document.getElementById('hair_length').value;
+    const hairLength = getVal('hair_length');
     if (hairLength) parts.push(hairLength);
 
-    const hairStyle = document.getElementById('hair_style').value;
+    const hairStyle = getVal('hair_style');
     if (hairStyle) parts.push(hairStyle);
 
-    // 4. Глаза
-    const eyeColor = document.getElementById('eye_color').value;
-    if (eyeColor) parts.push(eyeColor);
+    // Глаза
+    const eyeColorCustom = getVal('eye_color_custom');
+    if (eyeColorCustom) parts.push(eyeColorCustom);
+    else {
+        const eyeColor = getVal('eye_color');
+        if (eyeColor) parts.push(eyeColor);
+    }
 
-    // 5. Тело и Поза
-    const bodyType = document.getElementById('body_type').value;
+    // Тело и Поза
+    const bodyType = getVal('body_type');
     if (bodyType) parts.push(bodyType);
 
-    const poseCustom = document.getElementById('pose_custom').value.trim();
+    const poseCustom = getVal('pose_custom');
     if (poseCustom) parts.push(poseCustom);
     else {
-        const pose = document.getElementById('pose').value;
+        const pose = getVal('pose');
         if (pose) parts.push(pose);
     }
 
-    // 6. Одежда (Верх) - УМНАЯ СКЛЕЙКА С ЯКОРЕМ
-    const topColorCustom = document.getElementById('top_color_custom').value.trim();
-    let topColor = topColorCustom || document.getElementById('top_color').value;
+    // Одежда (Верх)
+    const topColorCustom = getVal('top_color_custom');
+    let topColor = topColorCustom || getVal('top_color');
     if (topColor === 'custom') topColor = '';
 
-    const topCustom = document.getElementById('top_custom').value.trim();
-    let topValue = topCustom || document.getElementById('top').value;
+    const topCustom = getVal('top_custom');
+    let topValue = topCustom || getVal('top');
     if (topValue === 'custom') topValue = '';
 
     if (topColor && topValue) {
         const combined = `${topColor} ${topValue}`;
-        if (combined.split(' ').length <= 2) {
-            parts.push(combined); // "red bra"
-        } else {
-            // "white crop top" → "white top, crop top"
-            const anchor = topValue.split(' ').pop(); // "top"
+        if (combined.split(' ').length <= 2) parts.push(combined);
+        else {
+            const anchor = topValue.split(' ').pop();
             parts.push(`${topColor} ${anchor}`, topValue);
         }
-    } else if (topColor) {
-        parts.push(topColor);
-    } else if (topValue) {
-        parts.push(topValue);
-    }
+    } else if (topColor) parts.push(topColor);
+    else if (topValue) parts.push(topValue);
 
-    // 7. Одежда (Низ) - УМНАЯ СКЛЕЙКА С ЯКОРЕМ
-    const bottomColorCustom = document.getElementById('bottom_color_custom').value.trim();
-    let bottomColor = bottomColorCustom || document.getElementById('bottom_color').value;
+    // Одежда (Низ)
+    const bottomColorCustom = getVal('bottom_color_custom');
+    let bottomColor = bottomColorCustom || getVal('bottom_color');
     if (bottomColor === 'custom') bottomColor = '';
 
-    const bottomCustom = document.getElementById('bottom_custom').value.trim();
-    let bottomValue = bottomCustom || document.getElementById('bottom').value;
+    const bottomCustom = getVal('bottom_custom');
+    let bottomValue = bottomCustom || getVal('bottom');
     if (bottomValue === 'custom') bottomValue = '';
 
     if (bottomColor && bottomValue) {
         const combined = `${bottomColor} ${bottomValue}`;
-        if (combined.split(' ').length <= 2) {
-            parts.push(combined); // "white panties"
-        } else {
-            // "black short shorts" → "black shorts, short shorts"
-            const anchor = bottomValue.split(' ').pop(); // "shorts"
+        if (combined.split(' ').length <= 2) parts.push(combined);
+        else {
+            const anchor = bottomValue.split(' ').pop();
             parts.push(`${bottomColor} ${anchor}`, bottomValue);
         }
-    } else if (bottomColor) {
-        parts.push(bottomColor);
-    } else if (bottomValue) {
-        parts.push(bottomValue);
-    }
+    } else if (bottomColor) parts.push(bottomColor);
+    else if (bottomValue) parts.push(bottomValue);
 
-    // 8. Ноги
-    const legs = document.getElementById('legs').value;
+    const legs = getVal('legs');
     if (legs) parts.push(legs);
 
-    // 9. Обувь
-    const shoes = document.getElementById('shoes').value;
+    const shoes = getVal('shoes');
     if (shoes) parts.push(shoes);
 
-    // 10. Фон
-    const bgCustom = document.getElementById('background_custom').value.trim();
+    // Фон
+    const bgCustom = getVal('background_custom');
     if (bgCustom) parts.push(bgCustom);
     else {
-        const bg = document.getElementById('background').value;
+        const bg = getVal('background');
         if (bg) parts.push(bg);
     }
 
-    // 11. Освещение
-    const lighting = document.getElementById('lighting').value;
+    // Освещение и аксессуары
+    const lighting = getVal('lighting');
     if (lighting) parts.push(lighting);
 
-    // 11.5. Аксессуары (очки)
-    const glasses = document.getElementById('glasses');
-    if (glasses && glasses.checked) {
-        parts.push('glasses');
-    }
+    if (isChecked('glasses')) parts.push('glasses');
 
-
-    // 12. Дополнительно
-    const extra = document.getElementById('extra').value.trim();
+    // Дополнительно
+    const extra = getVal('extra');
     if (extra) parts.push(extra);
 
-    // Собираем всё через запятую
-    document.getElementById('result').value = parts.join(', ');
+    return parts.filter(Boolean).join(', ');
 }
 
-
 // ==========================================
-// 3. КОПИРОВАНИЕ В БУФЕР ОБМЕНА
+// 3. ДЕЙСТВИЯ
 // ==========================================
+function previewDescription() {
+    document.getElementById('result').value = buildDescription();
+    if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+}
 
-function copyPrompt() {
-    const textarea = document.getElementById('result');
-    const text = textarea.value;
-
+function copyDescription() {
+    let text = document.getElementById('result').value.trim();
     if (!text) {
-        alert('Сначала сгенерируй промпт!');
-        return;
+        text = buildDescription();
+        document.getElementById('result').value = text;
     }
-
+    const textarea = document.getElementById('result');
     textarea.select();
     document.execCommand('copy');
 
     const btn = document.getElementById('copyBtn');
+    const originalText = btn.textContent;
     btn.textContent = '✅ Скопировано!';
-    btn.classList.add('copied');
-
-    setTimeout(() => {
-        btn.textContent = '📋 Копировать';
-        btn.classList.remove('copied');
-    }, 2000);
+    if (tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+    setTimeout(() => { btn.textContent = originalText; }, 2000);
 }
 
 function sendToBot() {
-    const tg = window.Telegram.WebApp;
-    const promptText = document.getElementById('result').value.trim();
+    const finalText = buildDescription();
+    document.getElementById('result').value = finalText;
 
-    if (!promptText) {
-        // Используем стандартный alert, он работает везде на 100%
-        alert("Сначала нажми '✨ Создать промпт'!");
+    if (!finalText) {
+        alert("Сначала собери описание образа!");
         return;
+    }
+
+    // 🔥 Собираем словарь переопределений (overrides)
+    const overrides = {};
+    const framing = getVal('framing');
+
+    if (framing === 'full body') {
+        overrides.steps = 28; // Увеличиваем шаги для полного роста
+        // В будущем можно добавить что угодно, например:
+        // overrides.cfg_scale = 5.0;
+        // overrides.negative_additions = "bad feet, missing legs, cropped";
     }
 
     const payload = {
         action: "generate_from_webapp",
-        prompt: promptText
+        prompt: finalText,
+        overrides: overrides  // <-- Передаем словарь (даже если он пустой {})
     };
 
-    // Вибрация для приятного отклика (если поддерживается)
-    if (tg.HapticFeedback) {
-        tg.HapticFeedback.impactOccurred('medium');
-    }
+    if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
 
     try {
         tg.sendData(JSON.stringify(payload));
+        setTimeout(() => { tg.close(); }, 400);
     } catch (error) {
-        alert("Ошибка: " + error.message);
+        console.error("Ошибка отправки:", error);
+        alert("Ошибка отправки: " + error.message);
     }
-    alert("Отправлено успешно");
-    // Отправляем данные боту. Web App закроется автоматически после этого.
-
 }
