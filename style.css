@@ -150,3 +150,20 @@ textarea#result {
     margin-top: 20px;
     padding-bottom: 20px;
 }
+
+/* Специальный класс для селектов с цветами */
+.color-select {
+    padding-left: 38px !important; /* Место под кружок */
+    background-repeat: no-repeat;
+    background-position: 12px center;
+    background-size: 18px 18px;
+    /* Дефолтный серый кружок, пока цвет не выбран */
+    background-image: radial-gradient(circle, #cccccc 100%);
+    transition: background-image 0.2s ease;
+}
+
+/* Делаем белый цвет видимым на белом фоне селекта */
+.color-select[value="white hair"],
+.color-select[value="white eyes"] {
+    border: 1px solid #ddd;
+}

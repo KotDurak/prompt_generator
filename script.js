@@ -18,10 +18,10 @@ function isChecked(id) {
 // ==========================================
 // 1. УМНАЯ ЛОГИКА ИНТЕРФЕЙСА (Показ/Скрытие)
 // ==========================================
-// Словарь связей: ID селекта -> ID инпута
 const customFieldsMap = {
     'background': 'background_custom',
     'hair_color': 'hair_color_custom',
+    'hair_style': 'hair_style_custom', // 🔥 ДОБАВЛЕНО
     'eye_color': 'eye_color_custom',
     'pose': 'pose_custom',
     'top': 'top_custom',
@@ -30,22 +30,35 @@ const customFieldsMap = {
     'bottom_color': 'bottom_color_custom'
 };
 
-// Навешиваем обработчики на все пары автоматически
 for (const [selectId, inputId] of Object.entries(customFieldsMap)) {
     const selectEl = document.getElementById(selectId);
     const inputEl = document.getElementById(inputId);
 
     if (selectEl && inputEl) {
         selectEl.addEventListener('change', function() {
-            // Показываем, если выбрано "" (Свой вариант) или "custom"
             if (this.value === "" || this.value === "custom") {
                 inputEl.style.display = 'block';
-                inputEl.focus(); // Сразу ставим курсор в поле для удобства
+                inputEl.focus();
             } else {
                 inputEl.style.display = 'none';
-                inputEl.value = ''; // Очищаем значение, чтобы оно не попало в промпт случайно!
+                inputEl.value = '';
             }
         });
+    }
+}
+
+// Функция для чекбокса ручной правки
+function toggleManualEdit() {
+    const textarea = document.getElementById('result');
+    const checkbox = document.getElementById('manual_edit');
+    textarea.readOnly = !checkbox.checked;
+
+    if (checkbox.checked) {
+        textarea.style.background = '#fff';
+        textarea.style.borderColor = '#a1c4fd';
+        textarea.focus();
+    } else {
+        textarea.style.background = 'rgba(255, 255, 255, 0.8)';
     }
 }
 
@@ -57,20 +70,16 @@ function buildDescription() {
     parts.push('1girl, solo');
 
     const framing = getVal('framing');
-    const isFullBody = framing === 'full body'; // Запоминаем, выбран ли полный рост
+    const isFullBody = framing === 'full body';
 
     if (framing) {
         parts.push(framing);
-
-        // 🔥 МАГИЯ ДЛЯ ПОЛНОГО РОСТА
         if (isFullBody) {
-            // Эти теги заставляют модель отдалить камеру и прорисовать детали
-            parts.push('wide shot, detailed full body, perfect anatomy, detailed feet, sharp focus');
+            parts.push('wide shot, straight-on shot, perfect anatomy, detailed feet, sharp focus, highly detailed');
         }
     }
 
-
-    // Волосы
+    // Волосы (Цвет)
     const hairColorCustom = getVal('hair_color_custom');
     if (hairColorCustom) parts.push(hairColorCustom);
     else {
@@ -81,8 +90,13 @@ function buildDescription() {
     const hairLength = getVal('hair_length');
     if (hairLength) parts.push(hairLength);
 
-    const hairStyle = getVal('hair_style');
-    if (hairStyle) parts.push(hairStyle);
+    // Волосы (Прическа) - 🔥 ИСПРАВЛЕНО
+    const hairStyleCustom = getVal('hair_style_custom');
+    if (hairStyleCustom) parts.push(hairStyleCustom);
+    else {
+        const hairStyle = getVal('hair_style');
+        if (hairStyle) parts.push(hairStyle);
+    }
 
     // Глаза
     const eyeColorCustom = getVal('eye_color_custom');
@@ -172,6 +186,13 @@ function buildDescription() {
 // 3. ДЕЙСТВИЯ
 // ==========================================
 function previewDescription() {
+    const isManual = document.getElementById('manual_edit').checked;
+    if (isManual && document.getElementById('result').value.trim() !== '') {
+        if (!confirm('Сборка из кнопок перезапишет ваш ручной текст. Продолжить?')) {
+            return;
+        }
+    }
+
     document.getElementById('result').value = buildDescription();
     if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
 }
@@ -194,29 +215,30 @@ function copyDescription() {
 }
 
 function sendToBot() {
-    const finalText = buildDescription();
-    document.getElementById('result').value = finalText;
+    let finalText = document.getElementById('result').value.trim();
+
+    // Если поле пустое, собираем из кнопок. Если есть ручной текст — берем его.
+    if (!finalText) {
+        finalText = buildDescription();
+        document.getElementById('result').value = finalText;
+    }
 
     if (!finalText) {
         alert("Сначала собери описание образа!");
         return;
     }
 
-    // 🔥 Собираем словарь переопределений (overrides)
+    // Собираем overrides
     const overrides = {};
     const framing = getVal('framing');
-
     if (framing === 'full body') {
-        overrides.steps = 28; // Увеличиваем шаги для полного роста
-        // В будущем можно добавить что угодно, например:
-        // overrides.cfg_scale = 5.0;
-        // overrides.negative_additions = "bad feet, missing legs, cropped";
+        overrides.steps = 28;
     }
 
     const payload = {
         action: "generate_from_webapp",
         prompt: finalText,
-        overrides: overrides  // <-- Передаем словарь (даже если он пустой {})
+        overrides: overrides
     };
 
     if (tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
@@ -228,4 +250,70 @@ function sendToBot() {
         console.error("Ошибка отправки:", error);
         alert("Ошибка отправки: " + error.message);
     }
+}
+
+// ==========================================
+// ВИЗУАЛИЗАЦИЯ ЦВЕТОВ В SELECT (CSS Swatches)
+// ==========================================
+const colorMap = {
+    // Волосы и глаза (специфичные)
+    'red hair': '#ff4d4d', 'white hair': '#ffffff', 'silver hair': '#c0c0c0',
+    'black hair': '#222222', 'brown hair': '#8b5a2b', 'blonde hair': '#ffe066',
+    'pink hair': '#ff99cc', 'blue hair': '#4d94ff', 'green hair': '#4dff88',
+    'purple hair': '#b366ff', 'multicolor hair': 'conic-gradient(red, yellow, lime, aqua, blue, magenta, red)',
+    'lilac hair': '#c8a2c8',
+    'red eyes': '#ff4d4d', 'blue eyes': '#4d94ff', 'green eyes': '#4dff88',
+    'golden eyes': '#ffd700', 'purple eyes': '#b366ff', 'pink eyes': '#ff99cc',
+    'cyan eyes': '#00ffff', 'yellow eyes': '#ffff4d', 'white eyes': '#f0f0f0',
+
+    // 🔥 БАЗОВЫЕ ЦВЕТА (для одежды и всего остального)
+    'red': '#ff4d4d',
+    'white': '#ffffff',
+    'black': '#222222',
+    'blue': '#4d94ff',
+    'pink': '#ff99cc',
+    'purple': '#b366ff'
+};
+
+function updateColorSwatch(selectElement) {
+    const color = colorMap[selectElement.value];
+    if (color) {
+        // Рисуем идеальный кружок через CSS-градиент
+        selectElement.style.backgroundImage = `radial-gradient(circle, ${color} 100%)`;
+
+        // Особая магия для разноцветных волос
+        if (selectElement.value === 'multicolor hair') {
+            selectElement.style.backgroundImage = `conic-gradient(red, yellow, lime, aqua, blue, magenta, red)`;
+        }
+    } else {
+        // Если выбран "Свой вариант" или "Не важно"
+        selectElement.style.backgroundImage = `radial-gradient(circle, #cccccc 100%)`;
+    }
+}
+
+// Навешиваем обработчики на цвета волос и глаз
+const hairColorSelect = document.getElementById('hair_color');
+const eyeColorSelect = document.getElementById('eye_color');
+
+const topColorSelect = document.getElementById('top_color');
+const bottomColorSelect = document.getElementById('bottom_color');
+
+if (hairColorSelect) {
+    hairColorSelect.addEventListener('change', function() { updateColorSwatch(this); });
+    updateColorSwatch(hairColorSelect); // Устанавливаем цвет при загрузке
+}
+
+if (eyeColorSelect) {
+    eyeColorSelect.addEventListener('change', function() { updateColorSwatch(this); });
+    updateColorSwatch(eyeColorSelect); // Устанавливаем цвет при загрузке
+}
+
+if (topColorSelect) {
+    topColorSelect.addEventListener('change', function() { updateColorSwatch(this); });
+    updateColorSwatch(topColorSelect); // Устанавливаем цвет при загрузке
+}
+
+if (bottomColorSelect) {
+    bottomColorSelect.addEventListener('change', function() { updateColorSwatch(this); });
+    updateColorSwatch(bottomColorSelect); // Устанавливаем цвет при загрузке
 }

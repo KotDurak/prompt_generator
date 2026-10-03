@@ -22,11 +22,11 @@
     <div class="control">
         <label>Кадрирование:</label>
         <select id="framing">
-            <option value="cowboy shot" selected>Ковбойский кадр (по бедра) — Рекомендуемый</option>
-            <option value="upper body">По пояс (портрет)</option>
-            <option value="full body">Полный рост (требует деталей)</option>
-            <option value="portrait">Крупный план (только лицо)</option>
-            <option value="close-up">Макро (глаза/лицо)</option>
+            <option value="cowboy shot" selected>🤠 Ковбойский кадр (по бедра) — Рекомендуемый</option>
+            <option value="upper body">👤 По пояс (портрет)</option>
+            <option value="full body">📸 Полный рост (требует деталей)</option>
+            <option value="portrait">🖼️ Портрет (лицо и плечи)</option>
+            <option value="close-up">🔍 Крупный план (только лицо)</option>
         </select>
     </div>
     <div class="control">
@@ -49,7 +49,7 @@
     <h3>💇 Волосы и Глаза</h3>
     <div class="control">
         <label>Цвет волос:</label>
-        <select id="hair_color">
+        <select id="hair_color"  class="color-select">
             <option value="red hair">Красные</option>
             <option value="white hair">Белые</option>
             <option value="silver hair">Серебряные</option>
@@ -70,29 +70,30 @@
     <div class="control">
         <label>Длина волос:</label>
         <select id="hair_length">
-            <option value="long hair">Длинные</option>
-            <option value="medium hair">Средние</option>
-            <option value="short hair">Короткие</option>
+            <option value="long hair">💇‍♀️ Длинные</option>
+            <option value="medium hair">💇 Средние</option>
+            <option value="short hair">✂️ Короткие</option>
         </select>
         <label style="margin-top: 8px; display: block;">Прическа:</label>
         <select id="hair_style">
-            <option value="">Распущенные</option>
-            <option value="ponytail">Хвост</option>
-            <option value="side ponytail">Хвост набок</option>
-            <option value="twintails">Два хвоста</option>
-            <option value="twintails drill">Два хвоста-дрели</option>
-            <option value="braids">Косы</option>
-            <option value="bob cut">Каре</option>
-            <option value="hime cut">Химэ (принцесса)</option>
-            <option value="drill hair">Спиральные локоны</option>
-            <option value="ahoge">Ахогэ (торчащая прядь)</option>
-            <option value="messy hair">Растрёпанные</option>
+            <option value="">💨 Распущенные</option>
+            <option value="ponytail">🎀 Хвост</option>
+            <option value="side ponytail">🎀 Хвост набок</option>
+            <option value="twintails">👯 Два хвоста</option>
+            <option value="twintails drill">🌀 Два хвоста-дрели</option>
+            <option value="braids">🧶 Косы</option>
+            <option value="bob cut">💇 Каре</option>
+            <option value="hime cut">👑 Химэ (принцесса)</option>
+            <option value="drill hair">🌀 Спиральные локоны</option>
+            <option value="ahoge">📌 Ахогэ (торчащая прядь)</option>
+            <option value="messy hair">💨 Растрёпанные</option>
             <option value="custom">— Свой вариант —</option>
         </select>
+        <input type="text" id="hair_style_custom" placeholder="e.g. braided bun, messy bun" style="display: none; margin-top: 5px;">
     </div>
     <div class="control">
         <label>Цвет глаз:</label>
-        <select id="eye_color">
+        <select id="eye_color"  class="color-select">
             <option value="red eyes">Красные</option>
             <option value="blue eyes">Голубые</option>
             <option value="green eyes">Зелёные</option>
@@ -133,11 +134,11 @@
     <div class="control">
         <label>Поза:</label>
         <select id="pose">
-            <option value="standing">Стоит</option>
-            <option value="sitting">Сидит</option>
-            <option value="lying">Лежит</option>
-            <option value="kneeling">На коленях</option>
-            <option value="facing viewer">Смотрит прямо на зрителя</option>
+            <option value="standing">🧍 Стоит</option>
+            <option value="sitting">🧘 Сидит</option>
+            <option value="lying">🛌 Лежит</option>
+            <option value="kneeling">🧎 На коленях</option>
+            <option value="facing viewer">👀 Смотрит прямо на зрителя</option>
             <option value="">— Свой вариант —</option>
         </select>
         <!-- СКРЫТ ПО УМОЛЧАНИЮ -->
@@ -151,18 +152,18 @@
         <label>Верх:</label>
         <select id="top">
             <option value="">Не важно</option>
-            <option value="t-shirt">Футболка</option>
-            <option value="shirt">Рубашка</option>
-            <option value="blouse">Блузка</option>
-            <option value="crop top">Кроп-топ</option>
-            <option value="tank top">Майка</option>
-            <option value="off-shoulder shirt">С открытыми плечами</option>
-            <option value="backless dress">С открытой спиной</option>
-            <option value="bra">Бюстгальтер</option>
-            <option value="cat bra">Бюстгальтер с ушками</option>
+            <option value="t-shirt">👕 Футболка</option>
+            <option value="shirt">👔 Рубашка</option>
+            <option value="blouse">👚 Блузка</option>
+            <option value="crop top">👙 Кроп-топ</option>
+            <option value="tank top">🎽 Майка</option>
+            <option value="off-shoulder shirt">👗 С открытыми плечами</option>
+            <option value="backless dress">👗 С открытой спиной</option>
+            <option value="bra">🎀 Бюстгальтер</option>
+            <option value="cat bra">🐱 Бюстгальтер с ушками</option>
             <option value="custom">— Свой вариант —</option>
         </select>
-        <select id="top_color" style="margin-top: 5px;">
+        <select id="top_color" style="margin-top: 5px;" class="color-select">
             <option value="">Цвет верха</option>
             <option value="red">Красный</option>
             <option value="white">Белый</option>
@@ -180,17 +181,18 @@
         <label>Низ:</label>
         <select id="bottom">
             <option value="">Не важно</option>
-            <option value="miniskirt">Мини-юбка</option>
-            <option value="short skirt">Короткая юбка</option>
-            <option value="pleated skirt">Плиссированная юбка</option>
-            <option value="long skirt">Длинная юбка</option>
-            <option value="short shorts">Короткие шорты</option>
-            <option value="jeans">Джинсы</option>
-            <option value="panties">Трусики</option>
-            <option value="cat panties">Трусики с ушками</option>
+            <option value="miniskirt">👗 Мини-юбка</option>
+            <option value="short skirt">👗 Короткая юбка</option>
+            <option value="pleated skirt">👗 Плиссированная юбка</option>
+            <option value="long skirt">👗 Длинная юбка</option>
+            <option value="short shorts">🩳 Короткие шорты</option>
+            <option value="jeans">👖 Джинсы</option>
+            <option value="denim shorts">👖 Джинсовые шорты</option>
+            <option value="panties">🩲 Трусики</option>
+            <option value="cat panties">🐱 Трусики с ушками</option>
             <option value="custom">— Свой вариант —</option>
         </select>
-        <select id="bottom_color" style="margin-top: 5px;">
+        <select id="bottom_color" style="margin-top: 5px;" class="color-select">
             <option value="">Цвет низа</option>
             <option value="red">Красный</option>
             <option value="white">Белый</option>
@@ -208,12 +210,12 @@
         <label>Ноги:</label>
         <select id="legs">
             <option value="">Не важно</option>
-            <option value="bare legs">Голые ноги</option>
-            <option value="thighhighs">Чулки до бедра</option>
-            <option value="kneehighs">Гольфы</option>
-            <option value="pantyhose">Колготки</option>
-            <option value="stockings">Чулки</option>
-            <option value="fishnet stockings">Сетчатые чулки</option>
+            <option value="bare legs">🦵 Голые ноги</option>
+            <option value="thighhighs">🧦 Чулки до бедра</option>
+            <option value="kneehighs">🧦 Гольфы</option>
+            <option value="pantyhose">👖 Колготки</option>
+            <option value="stockings">🧦 Чулки</option>
+            <option value="fishnet stockings">🕸️ Сетчатые чулки</option>
         </select>
     </div>
 
@@ -221,12 +223,12 @@
         <label>Обувь:</label>
         <select id="shoes">
             <option value="">Не важно</option>
-            <option value="barefoot">Босиком</option>
-            <option value="sneakers">Кроссовки</option>
-            <option value="boots">Ботинки</option>
-            <option value="high heels">Туфли на каблуке</option>
-            <option value="sandals">Сандалии</option>
-            <option value="loafers">Лоферы</option>
+            <option value="barefoot">🦶 Босиком</option>
+            <option value="sneakers">👟 Кроссовки</option>
+            <option value="boots">👢 Ботинки</option>
+            <option value="high heels">👠 Туфли на каблуке</option>
+            <option value="sandals">🩴 Сандалии</option>
+            <option value="loafers">👞 Лоферы</option>
         </select>
     </div>
 </div>
@@ -257,7 +259,17 @@
 
 <div class="section">
     <h3>📝 Что получится (нейросеть поймёт):</h3>
-    <textarea id="result" readonly placeholder="Здесь появится описание образа..."></textarea>
+
+    <!-- Чекбокс для включения редактирования -->
+    <div class="control" style="margin-bottom: 8px;">
+        <label style="display: flex; align-items: center; cursor: pointer; font-size: 13px;">
+            <input type="checkbox" id="manual_edit" style="width: auto; margin-right: 8px; transform: scale(1.2);" onchange="toggleManualEdit()">
+            ✏️ Включить ручную правку тегов
+        </label>
+    </div>
+
+    <!-- Убрали readonly, добавили id для чекбокса -->
+    <textarea id="result" readonly placeholder="Нажми 'Предпросмотр' или 'Нарисовать', чтобы собрать описание..."></textarea>
 </div>
 
 <div class="footer">
@@ -265,6 +277,6 @@
 </div>
 
 <!-- Увеличиваем версию, чтобы браузер не кэшировал старый JS -->
-<script src="script.js?v=8"></script>
+<script src="script.js?v=9"></script>
 </body>
 </html>
