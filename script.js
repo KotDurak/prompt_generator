@@ -171,3 +171,27 @@ function copyPrompt() {
         btn.classList.remove('copied');
     }, 2000);
 }
+
+function sendToBot() {
+    const tg = window.Telegram.WebApp;
+    const promptText = document.getElementById('result').value.trim();
+
+    if (!promptText) {
+        // Используем стандартный alert, он работает везде на 100%
+        alert("Сначала нажми '✨ Создать промпт'!");
+        return;
+    }
+
+    const payload = {
+        action: "generate_from_webapp",
+        prompt: promptText
+    };
+
+    // Вибрация для приятного отклика (если поддерживается)
+    if (tg.HapticFeedback) {
+        tg.HapticFeedback.impactOccurred('medium');
+    }
+
+    // Отправляем данные боту. Web App закроется автоматически после этого.
+    tg.sendData(JSON.stringify(payload));
+}
