@@ -75,7 +75,8 @@ function buildDescription() {
     if (framing) {
         parts.push(framing);
         if (isFullBody) {
-            parts.push('wide shot, straight-on shot, perfect anatomy, detailed feet, sharp focus, highly detailed');
+            // Заставляем модель сфокусироваться на четкости лица и деталей на расстоянии
+            parts.push('ultra-detailed face, highly detailed eyes, crisp linework, sharp focus, detailed clothes');
         }
     }
 
@@ -232,7 +233,7 @@ function sendToBot() {
     const overrides = {};
     const framing = getVal('framing');
     if (framing === 'full body') {
-        overrides.steps = 28;
+        overrides.steps = 30;
     }
 
     const payload = {
