@@ -191,7 +191,7 @@ function sendToBot() {
     if (tg.HapticFeedback) {
         tg.HapticFeedback.impactOccurred('medium');
     }
-
+    alert("Отправлено");
     // Отправляем данные боту. Web App закроется автоматически после этого.
     tg.sendData(JSON.stringify(payload));
 }
