@@ -50,19 +50,20 @@
     <h3>💇 Волосы и Глаза</h3>
     <div class="control">
         <label>Цвет волос:</label>
-        <select id="hair_color"  class="color-select">
-            <option value="red hair">Красные</option>
-            <option value="white hair">Белые</option>
-            <option value="silver hair">Серебряные</option>
-            <option value="black hair">Чёрные</option>
-            <option value="brown hair">Каштановые</option>
-            <option value="blonde hair">Блонд</option>
-            <option value="pink hair">Розовые</option>
-            <option value="blue hair">Синие</option>
-            <option value="green hair">Зелёные</option>
-            <option value="purple hair">Фиолетовые</option>
-            <option value="multicolor hair">Разноцветные</option>
-            <option value="lilac hair">Сиреневые</option>
+        <select id="hair_color" class="color-select">
+            <option value="red hair">🔴 Красные</option>
+            <option value="white hair">⚪ Белые</option>
+            <option value="silver hair">🩶 Серебряные</option>
+            <option value="black hair">⚫ Чёрные</option>
+            <option value="brown hair">🟤 Каштановые</option>
+            <option value="blonde hair">🟡 Блонд</option>
+            <option value="pink hair">🩷 Розовые</option>
+            <option value="light blue hair">🩵 Светло-голубые (Тзинчия)</option>
+            <option value="blue hair">🔵 Синие</option>
+            <option value="green hair">🟢 Зелёные</option>
+            <option value="purple hair">🟣 Фиолетовые</option>
+            <option value="multicolor hair">🌈 Разноцветные</option>
+            <option value="lilac hair">💜 Сиреневые</option>
             <option value="">— Свой вариант —</option>
         </select>
         <!-- СКРЫТ ПО УМОЛЧАНИЮ -->
@@ -77,12 +78,19 @@
         </select>
         <label style="margin-top: 8px; display: block;">Прическа:</label>
         <select id="hair_style">
-            <option value="">💨 Распущенные</option>
+            <option value="">Не указывать (модель выберет сама)</option>
+            <option value="simple hairstyle">💇 Простая причёска</option>
+            <option value="wavy hair">🌊 Волнистые волосы</option>
+            <option value="curly hair">🌀 Кудрявые волосы</option>
+            <option value="straight hair">📏 Прямые волосы</option>
             <option value="ponytail">🎀 Хвост</option>
+            <option value="high ponytail">🎀 Высокий хвост</option>
+            <option value="low ponytail">🎀 Низкий хвост</option>
             <option value="side ponytail">🎀 Хвост набок</option>
             <option value="twintails">👯 Два хвоста</option>
             <option value="twintails drill">🌀 Два хвоста-дрели</option>
             <option value="braids">🧶 Косы</option>
+            <option value="bun">🍡 Пучок</option>
             <option value="bob cut">💇 Каре</option>
             <option value="hime cut">👑 Химэ (принцесса)</option>
             <option value="drill hair">🌀 Спиральные локоны</option>
@@ -250,11 +258,23 @@
 
             <optgroup label="👗 Юбки (Классика аниме)">
                 <option value="pleated skirt">👗 Плиссированная юбка (школьная)</option>
+                <option value="plaid skirt">🏴‍☠️ Клетчатая юбка (шотландка)</option>
+                <option value="checkered skirt">🏁 Клетчатая юбка (простая)</option>
                 <option value="miniskirt">👗 Мини-юбка</option>
                 <option value="pencil skirt">👗 Юбка-карандаш</option>
                 <option value="frilled skirt">👗 Юбка с оборками</option>
-                <option value="long skirt"> Длинная юбка (макси)</option>
-                <option value="tiered skirt"> Многоярусная юбка</option>
+                <option value="long skirt">👗 Длинная юбка (макси)</option>
+                <option value="tiered skirt">👗 Многоярусная юбка</option>
+            </optgroup>
+
+            <optgroup label="🏴‍☠️ Комбо-юбки (готовые сочетания)">
+                <option value="pleated skirt, short skirt, plaid skirt">🏴‍☠️ Клетчатая плиссированная мини</option>
+                <option value="pleated skirt, plaid skirt">🏴‍☠️ Клетчатая плиссированная</option>
+                <option value="short skirt, plaid skirt">🏴‍☠️ Короткая клетчатая</option>
+                <option value="pleated skirt, short skirt, checkered skirt">🏁 Клетчатая плиссированная мини (простая)</option>
+                <option value="long skirt, frilled skirt">👗 Длинная с оборками</option>
+                <option value="miniskirt, frilled skirt">👗 Мини с оборками</option>
+                <option value="pencil skirt, short skirt">👗 Короткая юбка-карандаш</option>
             </optgroup>
 
             <optgroup label=" Нижнее белье и купальники">
@@ -366,6 +386,6 @@
 </div>
 
 <!-- Увеличиваем версию, чтобы браузер не кэшировал старый JS -->
-<script src="script.js?v=9"></script>
+<script src="script.js?v=10"></script>
 </body>
 </html>

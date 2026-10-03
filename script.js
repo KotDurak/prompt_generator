@@ -262,7 +262,7 @@ const colorMap = {
     'black hair': '#222222', 'brown hair': '#8b5a2b', 'blonde hair': '#ffe066',
     'pink hair': '#ff99cc', 'blue hair': '#4d94ff', 'green hair': '#4dff88',
     'purple hair': '#b366ff', 'multicolor hair': 'conic-gradient(red, yellow, lime, aqua, blue, magenta, red)',
-    'lilac hair': '#c8a2c8',
+    'lilac hair': '#c8a2c8',  'light blue hair': '#87ceeb',
     'red eyes': '#ff4d4d', 'blue eyes': '#4d94ff', 'green eyes': '#4dff88',
     'golden eyes': '#ffd700', 'purple eyes': '#b366ff', 'pink eyes': '#ff99cc',
     'cyan eyes': '#00ffff', 'yellow eyes': '#ffff4d', 'white eyes': '#f0f0f0',
