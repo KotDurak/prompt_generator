@@ -450,3 +450,54 @@ textarea#result {
 .use-btn:hover {
     transform: scale(1.02);
 }
+
+/* Подсказка над чекбоксами */
+.hint {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: -10px;
+    margin-bottom: 12px;
+}
+
+/* Сетка для чекбоксов (2 колонки на мобильном) */
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+/* Карточка чекбокса */
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.6); /* Чуть темнее фон */
+    border: 1px solid rgba(100, 100, 150, 0.2); /* Чуть заметнее граница */
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 13px;
+    color: #2d3436; /* 🔥 ТЕМНЫЙ ТЕКСТ вместо #e0e0e0 */
+    font-weight: 500; /*  Чуть жирнее шрифт */
+}
+
+.checkbox-item:hover {
+    background: rgba(255, 255, 255, 0.9); /* При наведении еще светлее */
+    border-color: rgba(100, 100, 150, 0.4);
+    transform: translateY(-1px); /* Легкий эффект поднятия */
+}
+
+.checkbox-item input[type="checkbox"] {
+    width: auto;
+    margin-right: 10px;
+    transform: scale(1.3);
+    accent-color: #f5576c;
+    cursor: pointer;
+}
+
+/* Адаптив для очень узких экранов */
+@media (max-width: 360px) {
+    .checkbox-grid {
+        grid-template-columns: 1fr; /* 1 колонка на совсем маленьких экранах */
+    }
+}
