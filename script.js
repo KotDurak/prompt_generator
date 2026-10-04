@@ -188,7 +188,8 @@ function buildDescription() {
         'chk_glasses',       // 👓 Очки
         'chk_cat_ears',      // 🐱 Кошачьи ушки
         'chk_whip',          // ️ Плетка в руке
-        'chk_blush'          // 😊 Смущается (румянец)
+        'chk_blush',         // 😊 Смущается (румянец)
+        'chk_tanned',
     ];
 
     quickChecks.forEach(id => {
