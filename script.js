@@ -5,6 +5,29 @@ const tg = window.Telegram.WebApp;
 tg.expand();
 tg.ready();
 
+// В начале script.js
+const urlParams = new URLSearchParams(window.location.search);
+const initData = Telegram.WebApp.initData;
+
+// Если пришли данные от страницы персонажей
+if (urlParams.get('source') === 'characters') {
+    // Ждем данные от Telegram WebApp
+    Telegram.WebApp.onEvent('mainButtonClicked', function(){
+        const data = JSON.parse(Telegram.WebApp.sendData);
+        if (data.type === 'character_selected') {
+            // Заполняем поле промпта
+            document.getElementById('result').value = data.prompt;
+            document.getElementById('result').readOnly = false;
+
+            // Если есть Lora
+            if (data.overrides.lora_string) {
+                // Здесь логика установки Lora
+                localStorage.setItem('selected_lora', data.overrides.lora_string);
+            }
+        }
+    });
+}
+
 function getVal(id) {
     const el = document.getElementById(id);
     return el ? el.value.trim() : "";

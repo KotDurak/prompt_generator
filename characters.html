@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 Выбор персонажа</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+
+<div class="header">
+    <h2>🔥 Выбери персонажа</h2>
+    <p class="subtitle">Или <a href="index.html" class="back-link">вернись к ручному созданию</a></p>
+</div>
+
+<div class="filters">
+    <button class="filter-btn active" data-category="all">Все</button>
+    <button class="filter-btn" data-category="school">🏫 Школа</button>
+    <button class="filter-btn" data-category="casual">🌃 Повседневность</button>
+    <button class="filter-btn" data-category="fantasy">⚔️ Фэнтези</button>
+    <button class="filter-btn" data-category="dark">🩸 Готика</button>
+</div>>
+
+<!-- Сетка персонажей -->
+<div id="characters-grid" class="characters-grid">
+    <!-- Загружается динамически из characters.json -->
+</div>
+
+<!-- Модальное окно для кастомизации -->
+<div id="character-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3 id="modal-char-name">Персонаж</h3>
+        <img id="modal-char-image" src="" alt="Character">
+
+        <div class="customization">
+            <label>Поза:</label>
+            <select id="modal-pose"></select>
+
+            <label>Фон:</label>
+            <select id="modal-background"></select>
+
+            <label>Дополнительно:</label>
+            <input type="text" id="modal-extra" placeholder="e.g. smiling, blushing">
+
+            <!-- 🔥 НОВОЕ: Поле с финальным промптом -->
+            <div class="prompt-preview">
+                <label>📝 Итоговый промпт (можно редактировать):</label>
+                <textarea id="modal-prompt-preview" class="prompt-textarea" readonly></textarea>
+                <div class="prompt-actions">
+                    <button onclick="copyPrompt()" class="copy-btn" id="copyBtn"> Копировать</button>
+                    <button onclick="toggleEdit()" class="copy-btn" id="editBtn">✏️ Редактировать</button>
+                </div>
+            </div>
+        </div>
+
+        <button onclick="useCharacter()" class="use-btn">✨ Использовать этого персонажа</button>
+    </div>
+</div>
+<script src="characters_data.js"></script>
+<script src="characters.js"></script>
+</body>
+</html>
