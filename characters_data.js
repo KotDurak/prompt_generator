@@ -48,7 +48,7 @@ const CHARACTERS_DATA = {
             id: "lucy_elfen",
             name: "Люси",
             age: "???",
-            image: "https://via.placeholder.com/300x400/8e44ad/ffffff?text=Lucy",
+            image: "https://i.ibb.co/PGNf3PmC/image.png",
             base_prompt: "1girl, solo, <lora:Lucy_elfen_lied:0.8>, lucy (elfen lied), elfen lied, pink hair, red hair, horns, red eyes, black dress, black sleeveless dress, pink shirt, red ribbon, striped thighhighs, vectors, dark atmosphere",
             tags: ["диклониус", "рога", "готика"],
             category: "dark"
@@ -57,9 +57,9 @@ const CHARACTERS_DATA = {
         // === ФЭНТЕЗИ И МАГИЯ ===
         {
             id: "ruche_jester",
-            name: "Рюше",
+            name: "Руче",
             age: "???",
-            image: "https://via.placeholder.com/300x400/3498db/ffffff?text=Ruche",
+            image: "https://i.ibb.co/67jLjcFK/image.png",
             base_prompt: "1girl, solo, <lora:Luce_rubis:0.8>, Ruche, blue eyes, blue hair, short hair, wavy hair, bangs, side-swept bangs, facial mark, jester hat, bicorn hat, jester costume, off-the-shoulder jester costume, high-necked jester costume, diamond pattern, long sleeves, gloves, belt, red overskirt, split skirt, blue miniskirt, pleated skirt, thigh-high stockings, ankle boots",
             tags: ["шут", "цирк", "синие волосы"],
             category: "fantasy"

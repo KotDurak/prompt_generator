@@ -76,18 +76,47 @@ function populateSelects() {
     ).join('');
 }
 
+// Использование персонажа и отправка данных (строго по формату твоего бота)
 function useCharacter() {
     if (!selectedChar) return;
 
-    // 🔥 Берем текст из редактируемого поля
-    const finalPrompt = document.getElementById('modal-prompt-preview').value;
+    // 🔥 Берем текст из редактируемого поля (пользователь мог его изменить)
+    const finalPrompt = document.getElementById('modal-prompt-preview').value.trim();
 
+    if (!finalPrompt) {
+        alert("Ошибка: промпт пуст!");
+        return;
+    }
+
+    // Собираем overrides (можно добавить логику, как в основном скрипте, например, для full body)
+    const overrides = {};
+    // Если вдруг захочешь добавить специфичные настройки для персонажей, они пойдут сюда
+
+    // 🔥 Формируем payload точно так же, как в твоем sendToBot
     const payload = {
-        type: 'character_selected',
-        prompt: finalPrompt
+        action: "generate_from_webapp",
+        prompt: finalPrompt,
+        overrides: overrides
     };
 
-    Telegram.WebApp.sendData(JSON.stringify(payload));
+    // Тактильный отклик (вибрация) для приятного UX
+    if (Telegram.WebApp.HapticFeedback) {
+        Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+    }
+
+    try {
+        // Отправляем данные боту
+        Telegram.WebApp.sendData(JSON.stringify(payload));
+
+        // Закрываем Web App с небольшой задержкой, чтобы данные успели уйти
+        setTimeout(() => {
+            Telegram.WebApp.close();
+        }, 400);
+
+    } catch (error) {
+        console.error("Ошибка отправки:", error);
+        alert("Ошибка отправки: " + error.message);
+    }
 }
 
 function updatePromptPreview() {
