@@ -80,3 +80,26 @@ const CHARACTERS_DATA = {
         {id: "city_park", name: "🌳 Городской парк", value: "city park"}
     ]
 };
+
+
+function mergeAllCharacters() {
+    // Используем spread operator (...) для добавления элементов из других массивов
+    // Проверка typeof гарантирует, что если файл не загрузился, код не упадет с ошибкой
+
+    if (typeof CHARS_LORA !== 'undefined') {
+        CHARACTERS_DATA.characters.push(...CHARS_LORA);
+    }
+
+    if (typeof CHARS_MASCOTS !== 'undefined') {
+        CHARACTERS_DATA.characters.push(...CHARS_MASCOTS);
+    }
+
+    if (typeof CHARS_NO_LORA !== 'undefined') {
+        CHARACTERS_DATA.characters.push(...CHARS_NO_LORA);
+    }
+
+    console.log(`✅ Загружено персонажей: ${CHARACTERS_DATA.characters.length}`);
+}
+
+// 3. Запускаем слияние сразу при выполнении скрипта
+mergeAllCharacters();

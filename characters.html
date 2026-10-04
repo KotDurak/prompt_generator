@@ -13,14 +13,15 @@
     <h2>🔥 Выбери персонажа</h2>
     <p class="subtitle">Или <a href="index.html" class="back-link">вернись к ручному созданию</a></p>
 </div>
-
 <div class="filters">
     <button class="filter-btn active" data-category="all">Все</button>
+    <button class="filter-btn" data-category="goddesses">👑 Богини</button>
     <button class="filter-btn" data-category="school">🏫 Школа</button>
     <button class="filter-btn" data-category="casual">🌃 Повседневность</button>
     <button class="filter-btn" data-category="fantasy">⚔️ Фэнтези</button>
-    <button class="filter-btn" data-category="dark">🩸 Готика</button>
-</div>>
+    <button class="filter-btn" data-category="dark">🩸 Готика/Дарк</button>
+    <button class="filter-btn" data-category="action">🚀 Экшн / Sci-Fi</button>
+</div>
 
 <!-- Сетка персонажей -->
 <div id="characters-grid" class="characters-grid">
@@ -58,6 +59,8 @@
         <button onclick="useCharacter()" class="use-btn">✨ Использовать этого персонажа</button>
     </div>
 </div>
+<script src="chars/no_lora.js"></script>
+<script src="chars/mascots.js"></script>
 <script src="characters_data.js"></script>
 <script src="characters.js"></script>
 </body>
