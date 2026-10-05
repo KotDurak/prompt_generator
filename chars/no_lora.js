@@ -29,7 +29,7 @@ const CHARS_NO_LORA = [
         age: "??? (тысячи лет)",
         image: "https://i.ibb.co/8WyKj5h/gan-ui.png",
         // Убраны: holding bow, ice particles, liyue background
-        base_prompt: "girl, solo, ganyu (genshin impact), blue hair, qilin horns, golden bell, black bodysuit, white detached sleeves",
+        base_prompt: "girl, solo, ganyu (genshin impact), blue hair, long ponytail, purple eyes, red qilin horns, golden bell on neck, black and gold bodysuit, sleeveless backless bodysuit, white detached sleeves, white hip apron",
         tags: ["геншин", "рога", "лучница"],
         category: "fantasy"
     },
